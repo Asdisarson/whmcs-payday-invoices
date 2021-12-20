@@ -22,12 +22,24 @@ if(!class_exists('Payday_Api_Invoices')):
             return $response;
         }
 
-        public function create($customer_id)
+        public function create($invoice)
         {
-            if(empty($customer_id)) {
+            if(!is_a($invoice,'Payday_Invoice')) {
                 return false;
             }
-
+           $response = $this->api_request->post($this->url_endpoint, $invoice);
+            return $response;
         }
+
+        public function update($invoiceId, $invoiceStatus) {
+            if(empty($invoiceId)||empty($invoiceStatus)) {
+                return false;
+            }
+            $url = $this->url_endpoint . '/' . $invoiceId;
+            $response = $this->api_request->put($url, $invoiceStatus);
+            return $response;
+        }
+
+
     }
 endif;

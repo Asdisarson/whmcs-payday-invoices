@@ -33,40 +33,12 @@ if(!class_exists('Payday_Api_Customer')):
             return $response;
         }
 
-        public function create( $ssn, $email, $language = 'is', $name = '',
-                               $address = '', $zipCode = '', $city = '',
-                               $country = '', $contact = '', $phone = '')
+        public function create($customer)
         {
-           if(empty($ssn)||empty($email)) {
-               return false;
-           }
-           $array = array(
-             'ssn' => $ssn,
-               'email' => $email,
-               'language' => $language
-           );
-            if(!empty($name) && $name != '') {
-                $array['name'] = $name;
+            if(!is_a($customer,'Payday_Customer')) {
+                return false;
             }
-            if(!empty($address) && $address != '') {
-                $array['address'] = $address;
-            }
-            if(!empty($zipCode) && $zipCode != '') {
-                $array['zipCode'] = $zipCode;
-            }
-            if(!empty($city) && $city != '') {
-                $array['city'] = $city;
-            }
-            if(!empty($country) && $country != '') {
-                $array['country'] = $country;
-            }
-            if(!empty($contact) && $contact != '') {
-                $array['contact'] = $contact;
-            }
-            if(!empty($phone) && $phone != '') {
-                $array['phone'] = $phone;
-            }
-           $response = $this->api_request->post($this->url_endpoint, $array);
+           $response = $this->api_request->post($this->url_endpoint, $customer);
             return $response;
         }
 
