@@ -39,7 +39,28 @@ if(!class_exists('Payday_Api_Invoices')):
             $response = $this->api_request->put($url, $invoiceStatus);
             return $response;
         }
+        /*Todo
+        Change parameter $invoiceStatus
+        */
+        public function cancel($invoiceId) {
+            if(empty($invoiceId)) {
+                return false;
+            }
+            $invoiceStatus = 'Cancel';
+            $response = $this->update($invoiceId,$invoiceStatus);
+            return $response;
+        }
 
-
+    /*Todo
+    Change parameter $invoiceStatus
+    */
+    public function resend_email($invoiceId) {
+    if(empty($invoiceId)) {
+        return false;
     }
+    $invoiceStatus = 'Resend Email';
+    $response = $this->update($invoiceId,$invoiceStatus);
+    return $response;
+}
+}
 endif;
